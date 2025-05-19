@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Pintura</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      padding: 30px;
+      color: #333;
+    }
+
+    .contenedor {
+      max-width: 400px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0077cc;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    #respuesta {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #007700;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Calculadora de Pintura</h1>
+
+    <label for="alto">Alto de la pared (m):</label>
+    <input type="number" id="alto" step="0.01" required>
+
+    <label for="ancho">Ancho de la pared (m):</label>
+    <input type="number" id="ancho" step="0.01" required>
+
+    <label for="manos">Número de manos:</label>
+    <input type="number" id="manos" min="1" value="1" required>
+
+    <button onclick="CalcularLitros()">Calcular Litros</button>
+
+    <p id="respuesta"></p>
+  </div>
+
+  <script>
+    const ALTO = document.getElementById("alto");
+    const ANCHO = document.getElementById("ancho");
+    const MANOS = document.getElementById("manos");
+    const COBERTURA = 12; // metros cuadrados por litro
+
+    function CalcularLitros() {
+      let alto = Number(ALTO.value);
+      let ancho = Number(ANCHO.value);
+      let manos = Number(MANOS.value);
+
+      if (isNaN(alto) || isNaN(ancho) || isNaN(manos) || alto <= 0 || ancho <= 0 || manos <= 0) {
+        document.getElementById("respuesta").textContent = "Por favor, ingresa valores válidos.";
+        return;
+      }
+
+      let areaTotal = alto * ancho * manos;
+      let litros = areaTotal / COBERTURA;
+
+      document.getElementById("respuesta").textContent =
+        `Necesitas aproximadamente  ${litros.toFixed(2)}  litros de pintura.`;
+    }
+  </script>
+</body>
+</html>
